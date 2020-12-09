@@ -8,7 +8,7 @@ RUN echo '这是一个本地构建的nginx镜像' \
  && apt-get install yum --assume-yes   
 
 
-COPY conf/nginx.conf  /etc/nginx/nginx.conf
+/Users/tongxinhua/home/local/docker/nginx/conf/docker_conf COPY conf/nginx.conf  /etc/nginx/nginx.conf
 #COPY conf/docker_conf /etc/nginx/conf.d
 #COPY www /opt/www
 

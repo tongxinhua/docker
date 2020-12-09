@@ -26,5 +26,8 @@ docker rmi xx xx
 load新镜像
 docker load -i xxx.tar
 
-#启动容器
+#启动nginx容器
 docker run -it -p 80:80 -v /Library/WebServer/Documents:/opt/www -v /Users/tongxinhua/home/local/docker/nginx/conf/docker_conf:/etc/nginx/conf.d --name nginx -d nginx:latest
+
+#启动mysql容器
+docker run -it -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root --name mysql -d mysql:5.7.21
