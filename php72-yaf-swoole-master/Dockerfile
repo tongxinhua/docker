@@ -28,7 +28,7 @@ RUN apk add --update git make gcc g++ imagemagick-dev \
 	&& rm -rf /var/cache/apk/*
 
 #RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php 
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         && docker-php-ext-install gd \
@@ -110,7 +110,7 @@ RUN apk add --update --no-cache \
 	nodejs \
 	nodejs-npm \
 	&& rm -rf /var/cache/apk/*
-	
+
 #RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
@@ -137,7 +137,7 @@ RUN mkdir /var/opt/oracle \
 
     # Install Oracle extensions
 RUN docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,/var/opt/oracle/instantclient_12_1,12.1 \
-	&& echo 'instantclient,/var/opt/oracle/instantclient_12_1/' | pecl install oci8 \
+	&& echo 'instantclient,/var/opt/oracle/instantclient_12_1/' | pecl install oci8-2.2.0 \
 	&& docker-php-ext-install \
                pdo_oci \
  	&& docker-php-ext-enable \
@@ -182,6 +182,6 @@ RUN npm install -g nodemon
 
 WORKDIR /mnt/hgfs/
 
-EXPOSE 9501
+EXPOSE 9000
 
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
