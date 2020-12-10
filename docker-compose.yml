@@ -10,7 +10,7 @@ nginx_docker:
     - "8080:8080"
   links:
     - php7yafswoole
-    #- mysql57
+    - mysql57
   volumes_from:
     - php7yafswoole
   expose:
@@ -41,7 +41,6 @@ php7yafswoole:
     - 114.114.114.114
     - 223.5.5.5
 
-
 mysql57:
   image: registry.cn-hangzhou.aliyuncs.com/tongxinhua1990/mysql5.7.21
   ports:
@@ -50,11 +49,6 @@ mysql57:
     - 3306
   environment:
     - MYSQL_ROOT_PASSWORD=19900613tong
-#    - MYSQL_ALLOW_EMPTY_PASSWORD=root
-#    - MYSQL_RANDOM_ROOT_PASSWORD=root
-#  privileged: true
-#  volumes:
-#    - /Applications/XAMPP/xamppfiles/var/mysql:/var/lib/mysql
   dns:
     - 127.0.0.1
     - 223.5.5.5
