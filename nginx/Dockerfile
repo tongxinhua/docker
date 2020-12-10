@@ -11,4 +11,4 @@ COPY conf/nginx.conf  /etc/nginx/nginx.conf
 
 EXPOSE 80 8080 443
 
-ENTRYPOINT ["/usr/sbin/nginx", "-c", "/etc/nginx/nginx.conf"]
+#ENTRYPOINT ["/usr/sbin/nginx", "-c", "/etc/nginx/nginx.conf"]
