@@ -181,7 +181,7 @@ RUN cd /tmp \
 RUN npm install -g nodemon
 
 WORKDIR /opt/www/
-RUN sudo mkdir -p /data/logs && chmod +w /data/logs
+RUN mkdir -p /data/logs && chmod +w /data/logs
 
 EXPOSE 9000
 
