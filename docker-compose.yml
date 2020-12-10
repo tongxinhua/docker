@@ -1,76 +1,36 @@
 nginx_docker:
-  image: daocloud.io/lifei6671/docker-nginx:latest
+  image: registry.cn-hangzhou.aliyuncs.com/tongxinhua1990/nginx
   volumes:
-    - ~/uxin/docker/nginx/conf.d:/etc/nginx/conf.d
-    - ~/uxin/docker/nginx/cron:/usr/local/nginx/conf
+    - /Users/tongxinhua/home/local/docker/nginx/conf/docker_conf:/etc/nginx/conf.d
   ports:
     - "80:80"
     - "403:403"
+    - "8080:8080"
   links:
-    - php56phalcon
-    - php7yaf
-    - php72zookeeper
     - php7yafswoole
-    - redis_docker
     - mysql57
-    - memcached_docker
   volumes_from:
-    - php56phalcon
+    - php7yafswoole
   expose:
     - 80
     - 403
+    - 8080
   dns:
-    - 223.5.5.5
-   
-php56phalcon:
-  image: registry.cn-hangzhou.aliyuncs.com/lifei6671/php56-fpm-phalcon-alpine:master
-  volumes:
-    - ~/uxin/docker/code:/mnt/hgfs
-  ports:
-    - "8000:9000"
-  links:
-    - mysql57
-    - redis_docker
-    - memcached_docker
-  expose:
-    - 9000
-  dns:
-    - 127.0.0.1
-    - 10.70.1.38
-    - 114.114.114.114
-    - 223.5.5.5
-
-php7yaf:
-  image: registry.cn-hangzhou.aliyuncs.com/lifei6671/php72-fpm-yaf-alpine:latest
-  volumes:
-    - ~/uxin/docker/code:/mnt/hgfs
-  ports:
-    - "9000:9000"
-    - "9501:9501"
-  links:
-    - mysql57
-    - redis_docker
-    - memcached_docker
-  expose:
-    - 9000
-    - 9501
-  dns:
-    - 10.70.1.38
-    - 114.114.114.114
     - 223.5.5.5
 
 php7yafswoole:
-  image: registry.cn-shanghai.aliyuncs.com/longlong/php72-yaf-swoole-alpine:latest
+  image: registry.cn-hangzhou.aliyuncs.com/tongxinhua1990/php_swoole
   volumes:
-    - ~/uxin/docker/zdcode:/mnt/hgfs
+    - /Users/tongxinhua/home/local/docker/php72-yaf-swoole-master/conf/php.ini:/usr/local/etc/php/php.ini
+    - /Users/tongxinhua/home/local/docker/php72-yaf-swoole-master/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    - /Users/tongxinhua/home/local/docker/php72-yaf-swoole-master/conf/yac.ini:/usr/local/etc/php/conf.d/yac.ini
+    - /Library/WebServer/Documents:/mnt/hgfs
+  #    - /data/logs:/data/logs
   ports:
-    - "9001:9000"
+    - "9000:9000"
     - "9502:9501"
-    - "18306:18306"
   links:
     - mysql57
-    - redis_docker
-    - memcached_docker
   expose:
     - 9000
     - 9501
@@ -79,28 +39,8 @@ php7yafswoole:
     - 114.114.114.114
     - 223.5.5.5
 
-php72zookeeper:
-  image: registry.cn-shanghai.aliyuncs.com/longlong/php72-zookeeper:1.0
-  volumes:
-    - ~/uxin/docker/zdcode:/mnt/hgfs
-    - ~/uxin/docker/logs:/mnt/e/uw_share/logs
-  ports:
-    - "9002:9000"
-    - "9503:9501"
-  links:
-    - mysql57
-    - redis_docker
-    - memcached_docker
-  expose:
-    - 9000
-    - 9501
-
 mysql57:
-  image: daocloud.io/library/mysql:5.7.14
-  volumes:
-    - ~/uxin/docker/mysql:/var/lib/mysql
-    - ~/uxin/docker/logs/mysql:/var/log/mysql
-    - ~/uxin/docker/conf:/etc/mysql/conf.d
+  image: registry.cn-hangzhou.aliyuncs.com/tongxinhua1990/mysql5.7.21
   ports:
     - "3306:3306"
   expose:
@@ -110,27 +50,3 @@ mysql57:
   dns:
     - 127.0.0.1
     - 223.5.5.5
-
-redis_docker:
-  image: daocloud.io/library/redis:latest
-  volumes:
-    - ~/uxin/docker/redis:/data
-  ports:
-    - "6379:6379"
-  expose:
-    - 6379
-  environment:
-    - REDIS_PASS=**None**
-  dns:
-    - 127.0.0.1
-    - 223.5.5.5
-memcached_docker:
-  image: daocloud.io/library/memcached:1.4.27-alpine
-  ports:
-    - "11211:11211"
-  expose:
-    - 11211
-  dns:
-    - 127.0.0.1
-    - 223.5.5.5
-    

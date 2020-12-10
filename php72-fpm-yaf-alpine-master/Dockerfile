@@ -23,9 +23,9 @@ RUN apk add --update git make gcc g++ imagemagick-dev \
     rabbitmq-c-dev \
 	binutils \
 	imagemagick-dev \
-	&& rm -rf /var/cache/apk/* 
+	&& rm -rf /var/cache/apk/*
 
-		 
+
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/aarch64/gnu-libiconv-1.15-r3.apk
 #RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
@@ -49,7 +49,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 		&& echo "extension=phalcon.so" > /usr/local/etc/php/conf.d/phalcon.ini \
 		&& echo "extension=igbinary.so" > /usr/local/etc/php/conf.d/igbinary.ini
 
-		
+
 WORKDIR /usr/src/php/ext/
 
 RUN pecl install swoole  4.2.12 \
@@ -59,14 +59,14 @@ RUN pecl install swoole  4.2.12 \
 	&& pecl install memcached 3.1.3 \
 	&& pecl install mongodb  1.5.3 \
 	&& pecl install igbinary 2.0.8 \
-	&& pecl install yaf 3.0.7 
+	&& pecl install yaf 3.0.7
 
 # Compile Phalcon
 ENV PHALCON_VERSION=3.4.1
 RUN set -xe && \
     curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz && \
     tar xzf v${PHALCON_VERSION}.tar.gz && cd cphalcon-${PHALCON_VERSION}/build && sh install
-	
+
 FROM php:7.2.6-fpm-alpine
 
 LABEL maintainer="longfei6671@163.com"
@@ -87,8 +87,8 @@ RUN apk add --update --no-cache \
 	rabbitmq-c \
     rabbitmq-c-dev \
 	imagemagick-dev \
-	&& rm -rf /var/cache/apk/* 
-	
+	&& rm -rf /var/cache/apk/*
+
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/aarch64/gnu-libiconv-1.15-r3.apk
 #RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
@@ -100,7 +100,7 @@ ADD conf/www.conf /usr/local/etc/php-fpm.d/www.conf
 ADD conf/yaf.ini /usr/local/etc/php/conf.d/yaf.ini
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-	
+
 RUN echo "extension=ldap.so" > /usr/local/etc/php/conf.d/ldap.ini \
 		&& echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini \
 		&& echo "extension=gd.so" > /usr/local/etc/php/conf.d/gd.ini \
@@ -120,7 +120,8 @@ RUN echo "extension=ldap.so" > /usr/local/etc/php/conf.d/ldap.ini \
 		&& echo "extension=sysvmsg.so" > /usr/local/etc/php/conf.d/sysvmsg.ini \
 		&& echo "extension=sysvshm.so" > /usr/local/etc/php/conf.d/sysvshm.ini
 
-WORKDIR /var/www/
+WORKDIR /opt/www/
+RUN sudo mkdir -p /data/logs && chmod -R 0755 /data/logs
 
 EXPOSE 9000
 
