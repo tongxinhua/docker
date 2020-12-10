@@ -2,6 +2,8 @@ nginx_docker:
   image: registry.cn-hangzhou.aliyuncs.com/tongxinhua1990/nginx
   volumes:
     - /Users/tongxinhua/home/local/docker/nginx/conf/docker_conf:/etc/nginx/conf.d
+    - /Users/tongxinhua/home/local/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+    - /data/logs/nginx:/var/log/nginx
   ports:
     - "80:80"
     - "403:403"
@@ -24,8 +26,8 @@ php7yafswoole:
     - /Users/tongxinhua/home/local/docker/php72-yaf-swoole-master/conf/php.ini:/usr/local/etc/php/php.ini
     - /Users/tongxinhua/home/local/docker/php72-yaf-swoole-master/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
     - /Users/tongxinhua/home/local/docker/php72-yaf-swoole-master/conf/yac.ini:/usr/local/etc/php/conf.d/yac.ini
-    - /Library/WebServer/Documents:/mnt/hgfs
-  #    - /data/logs:/data/logs
+    - /Library/WebServer/Documents:/opt/www
+    - /data/logs:/data/logs
   ports:
     - "9000:9000"
     - "9502:9501"
@@ -47,6 +49,8 @@ mysql57:
     - 3306
   environment:
     - MYSQL_ROOT_PASSWORD=123456
+  volumes:
+    - /Applications/XAMPP/xamppfiles/var/mysql:/var/lib/mysql
   dns:
     - 127.0.0.1
     - 223.5.5.5

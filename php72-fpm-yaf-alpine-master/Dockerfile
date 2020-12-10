@@ -120,8 +120,7 @@ RUN echo "extension=ldap.so" > /usr/local/etc/php/conf.d/ldap.ini \
 		&& echo "extension=sysvmsg.so" > /usr/local/etc/php/conf.d/sysvmsg.ini \
 		&& echo "extension=sysvshm.so" > /usr/local/etc/php/conf.d/sysvshm.ini
 
-WORKDIR /opt/www/
-RUN sudo mkdir -p /data/logs && chmod -R 0755 /data/logs
+WORKDIR /var/www/
 
 EXPOSE 9000
 
