@@ -154,6 +154,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN echo "extension=ldap.so" > /usr/local/etc/php/conf.d/ldap.ini \
 		&& echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini \
+		&& echo "swoole.use_shortname=off" >> /usr/local/etc/php/conf.d/swoole.ini \
 		&& echo "extension=gd.so" > /usr/local/etc/php/conf.d/gd.ini \
 		&& echo "extension=mysqli.so" > /usr/local/etc/php/conf.d/mysqli.ini \
 		&& echo "extension=bz2.so" > /usr/local/etc/php/conf.d/bz2.ini \
